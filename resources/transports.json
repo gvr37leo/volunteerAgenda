@@ -1,0 +1,18 @@
+{
+  "transports":[{
+    "time":"09:00",
+    "destination":"supermarkt",
+    "passengers":["klaas","piet"],
+    "driver":"henk"
+  },{
+    "time":"09:00",
+    "destination":"supermarkt",
+    "passengers":["klaas","piet"],
+    "driver":"henk"
+  },{
+    "time":"09:00",
+    "destination":"supermarkt",
+    "passengers":["klaas","piet"],
+    "driver":"henk"
+  }]
+}
