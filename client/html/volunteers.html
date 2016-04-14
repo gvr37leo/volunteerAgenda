@@ -1,10 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/custom.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
 </head>
-<body>
+<body ng-controller="ctrl">
+<div class="fluid-container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1>Transport</h1>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>time</th>
+                    <th>destination</th>
+                    <th>passengers</th>
+                    <th>driver</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="transport in transports">
+                    <td>{{transport.time}}</td>
+                    <td>{{transport.destination}}</td>
+                    <td>{{commas(transport.passengers)}}</td>
+                    <td>{{transport.driver}}</td>
+                    <td><button type="button" class="btn btn-warning">Save</button></td>
+                    <td><button type="button" class="btn btn-danger">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="form-control"></td>
+                    <td><input type="text" class="form-control"></td>
+                    <td><input type="text" class="form-control"></td>
+                    <td><input type="text" class="form-control"></td>
+                    <td><button type="button" class="btn btn-primary">Add</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="../js/volunteerctrl.js"></script>
 </body>
 </html>

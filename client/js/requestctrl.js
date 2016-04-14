@@ -1,7 +1,6 @@
 var app = angular.module('app', []);
 
 app.controller('ctrl',function($scope){
-    $scope.name = "paul";
     $scope.transports = [];
     $scope.commas = function commas(items) {
         return items.join(",");

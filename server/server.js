@@ -2,11 +2,14 @@ var mysql = require("mysql");
 var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
+var port = 8000;
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.static('./client'));
 var router = express.Router();
 app.use('/api', router);
-var port = 8000;
+
 app.listen(port);
 console.log('listening on ' + port);
 
@@ -18,6 +21,10 @@ var connection = mysql.createConnection({
 });
 
 connection.connect();
+
+app.get("/", function(req, res){
+    res.sendFile("client/html/elders.html", { root : "./"})
+});
 
 router.route('/elders')
     .post(function (req, res) {
@@ -62,4 +69,26 @@ router.route('/volunteers')
             res.send('updated');
         });
     });
+
+router.route('/requests')
+    //.post(function (req, res) {
+    //    connection.query('insert INTO volunteers (name) VALUES (\'' + req.body.name + '\')', function(err, rows, fields) {
+    //        res.send('posted');
+    //    });
+    //})
+    .get(function(req, res){
+        connection.query('select * from requests', function(err, rows, fields){
+            res.send(rows);
+        });
+    })
+    //.delete(function(req, res){
+    //    connection.query('delete from volunteers where volunteerid =' + req.body.id, function(err, rows, fields){
+    //        res.send('deleted');
+    //    });
+    //})
+    //.put(function(req, res){
+    //    connection.query('update volunteers set name = \'' + req.body.name + '\' where volunteerid =' + req.body.id, function(err, rows, fields){
+    //        res.send('updated');
+    //    });
+    //});
 
