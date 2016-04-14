@@ -2,42 +2,52 @@
 <html lang="en" ng-app="app">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Elders</title>
+    <link rel="shortcut icon" type="image/png" href="/calendar.png">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/custom.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
 </head>
 <body ng-controller="ctrl">
-<div class="fluid-container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h1>Elders</h1>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th>location</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="elder in elders track by $index">
-                    <td>{{elder.name}}</td>
-                    <td>{{elder.location}}</td>
-                    <td><button type="button" class="btn btn-warning" ng-click="update()">Save</button></td>
-                    <td><button type="button" class="btn btn-danger" ng-click="delete($index)">Delete</button></td>
-                </tr>
-                <tr>
-                    <td><input type="text" class="form-control" ng-model="name"></td>
-                    <td><input type="text" class="form-control" ng-model="location"></td>
-                    <td><button type="button" class="btn btn-primary" ng-click="post()">Add</button></td>
-                </tr>
-                </tbody>
-            </table>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li><a href="/">elders</a></li>
+                <li><a href="/html/requests.html">requests</a></li>
+                <li><a href="/html/volunteers.html">volunteers</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="fluid-container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h1>Elders</h1>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th>location</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="elder in elders track by $index">
+                        <td><input type="text" class="form-control" ng-model="elders[$index].name"></td>
+                        <td><input type="text" class="form-control" ng-model="elders[$index].location"></td>
+                        <td><button type="button" class="btn btn-warning" ng-click="update($index)">Save</button></td>
+                        <td><button type="button" class="btn btn-danger" ng-click="delete($index)">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="form-control" ng-model="name"></td>
+                        <td><input type="text" class="form-control" ng-model="location"></td>
+                        <td><button type="button" class="btn btn-primary" ng-click="post()">Add</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

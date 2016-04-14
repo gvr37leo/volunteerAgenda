@@ -17,8 +17,19 @@ app.controller('ctrl',function($scope){
             $scope.get();
         });
     };
-    $scope.update = function(){
-
+    $scope.update = function(index){
+        $.ajax({
+            type:"PUT",
+            url:"/api/elders",
+            data:{
+                name:$scope.elders[index].name,
+                location:$scope.elders[index].location,
+                id:$scope.elders[index].elderid
+            }
+        }).done(function(res){
+            console.log(res);
+            $scope.get();
+        });
     };
     $scope.post = function(){
         $.ajax({
