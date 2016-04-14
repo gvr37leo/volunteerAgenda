@@ -2,12 +2,12 @@ var mysql = require("mysql");
 var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+var router = express.Router();
+app.use('/api', router);
 var port = 8000;
 app.listen(port);
-var router = express.Router();
-app.use("/api", router);
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 console.log('listening on ' + port);
 
 var connection = mysql.createConnection({
@@ -19,60 +19,47 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-
-
-router.route("/elders")
-    .get(function(req, res) {
-        connection.query('select * from elders', function(err, rows, fields) {
-            if (err) throw err;
-            res.send(rows);
-        })
+router.route('/elders')
+    .post(function (req, res) {
+        connection.query('insert INTO elders (name, location) VALUES (\'' + req.body.name + '\',\'' + req.body.location + '\')', function(err, rows, fields) {
+            res.send('posted');
+        });
     })
-    .post(function(req, res){
-        connection.query('insert into elders (name, location) values(' + req.body.name + ',' + req.body.location + ')', function(err, rows, fields) {
-            if (err) throw err;
+    .get(function(req, res){
+        connection.query('select * from elders', function(err, rows, fields){
             res.send(rows);
-        })
+        });
+    })
+    .delete(function(req, res){
+        connection.query('delete from elders where elderid =' + req.body.id, function(err, rows, fields){
+            res.send('deleted');
+        });
+    })
+    .put(function(req, res){
+        connection.query('update elders set name = \'' + req.body.name + '\', location=\'' + req.body.location + '\' where elderid =' + req.body.id, function(err, rows, fields){
+            res.send('updated');
+        });
     });
 
+router.route('/volunteers')
+    .post(function (req, res) {
+        connection.query('insert INTO volunteers (name) VALUES (\'' + req.body.name + '\')', function(err, rows, fields) {
+            res.send('posted');
+        });
+    })
+    .get(function(req, res){
+        connection.query('select * from volunteers', function(err, rows, fields){
+            res.send(rows);
+        });
+    })
+    .delete(function(req, res){
+        connection.query('delete from volunteers where volunteerid =' + req.body.id, function(err, rows, fields){
+            res.send('deleted');
+        });
+    })
+    .put(function(req, res){
+        connection.query('update volunteers set name = \'' + req.body.name + '\' where volunteerid =' + req.body.id, function(err, rows, fields){
+            res.send('updated');
+        });
+    });
 
-//app.get('/api/requests', function(req, res) {
-//    connection.query('select * from requests', function(err, rows, fields) {
-//        if (err) throw err;
-//        res.send(rows);
-//    });
-//});
-//
-//app.get('/api/elders', function(req, res) {
-//    connection.query('select * from elders', function(err, rows, fields) {
-//        if (err) throw err;
-//        res.send(rows);
-//    });
-//});
-//
-//app.get('/api/volunteers', function(req, res) {
-//    connection.query('select * from volunteers', function(err, rows, fields) {
-//        if (err) throw err;
-//        res.send(rows);
-//    });
-//});
-//
-//app.get('/api/volunteers/:id', function(req, res) {
-//    connection.query('select * from volunteers where volunteerid =' + req.params.id, function(err, rows, fields) {
-//        if (err) throw err;
-//        res.send(rows[0]);
-//    });
-//});
-//
-//app.delete("/api/volunteers/:id",function(req, res){
-//    connection.query('delete from volunteers where volunteerid=' + req.params.id, function(err, rows, fields) {
-//        if (err) throw err;
-//        res.send(rows);
-//        console.log(rows)
-//    });
-//});
-//
-//app.put("/api/volunteers", function(req, res){
-//    console.log("put");
-//    res.send("put");
-//});
