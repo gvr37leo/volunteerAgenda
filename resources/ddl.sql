@@ -18,6 +18,6 @@ create table requests(
   time datetime not null,
   requestid int not null auto_increment,
   primary key(requestid),
-  foreign key(elderid) references elders(elderid),
-  foreign key(volunteerid) references volunteers(volunteerid)
+  foreign key(elderid) references elders(elderid)ON DELETE CASCADE ON UPDATE CASCADE,
+  foreign key(volunteerid) references volunteers(volunteerid)ON DELETE CASCADE ON UPDATE CASCADE
 );
