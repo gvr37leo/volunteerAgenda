@@ -12,22 +12,26 @@ html(lang=en ng-app='app')
                     table.table.table-striped
                         thead
                             tr
+                                th elderid
+                                th volunteerid
                                 th time
-                                th destination
-                                th passengers
-                                th driver
+                                th location
                                 th
                                 th
                         tbody
-                            tr(ng-repeat='transport in transports')
-                                td {{transport.time}}
-                                td {{transport.destination}}
-                                td {{commas(transport.passengers)}}
-                                td {{transport.driver}}
+                            tr(ng-repeat='request in requests track by $index')
                                 td
-                                    button.btn.btn-warning(type='button') Save
+                                    input.form-control(type='text', ng-model='request.elderid')
                                 td
-                                    button.btn.btn-danger(type='button') Delete
+                                    input.form-control(type='text', ng-model='request.volunteerid')
+                                td
+                                    input.form-control(type='text', ng-model='request.time')
+                                td
+                                    input.form-control(type='text', ng-model='request.location')
+                                td
+                                    button.btn.btn-warning(type='button', ng-click='update($index)') Save
+                                td
+                                    button.btn.btn-danger(type='button', ng-click='delete($index)') Delete
                             tr
                                 td
                                     input.form-control(type='text')

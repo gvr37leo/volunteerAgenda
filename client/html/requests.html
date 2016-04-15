@@ -24,25 +24,33 @@
           <table class="table table-striped">
             <thead>
               <tr>
+                <th>elderid</th>
+                <th>volunteerid</th>
                 <th>time</th>
-                <th>destination</th>
-                <th>passengers</th>
-                <th>driver</th>
+                <th>location</th>
                 <th></th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="transport in transports">
-                <td>{{transport.time}}</td>
-                <td>{{transport.destination}}</td>
-                <td>{{commas(transport.passengers)}}</td>
-                <td>{{transport.driver}}</td>
+              <tr ng-repeat="request in requests track by $index">
                 <td>
-                  <button type="button" class="btn btn-warning">Save</button>
+                  <input type="text" ng-model="request.elderid" class="form-control">
                 </td>
                 <td>
-                  <button type="button" class="btn btn-danger">Delete</button>
+                  <input type="text" ng-model="request.volunteerid" class="form-control">
+                </td>
+                <td>
+                  <input type="text" ng-model="request.time" class="form-control">
+                </td>
+                <td>
+                  <input type="text" ng-model="request.location" class="form-control">
+                </td>
+                <td>
+                  <button type="button" ng-click="update($index)" class="btn btn-warning">Save</button>
+                </td>
+                <td>
+                  <button type="button" ng-click="delete($index)" class="btn btn-danger">Delete</button>
                 </td>
               </tr>
               <tr>

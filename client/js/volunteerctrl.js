@@ -2,11 +2,46 @@ var app = angular.module('app', []);
 
 app.controller('ctrl',function($scope){
     $scope.volunteers = [];
-    $scope.commas = function commas(items) {
-        return items.join(",");
+
+
+    $scope.delete = function(index){
+        $.ajax({
+            type:"DELETE",
+            url:"/api/volunteers",
+            data:{
+                id:$scope.volunteers[index].volunteerid
+            }
+        }).done(function(res){
+            console.log(res);
+            $scope.get();
+        });
     };
-
-
+    $scope.update = function(index){
+        $.ajax({
+            type:"PUT",
+            url:"/api/volunteers",
+            data:{
+                name:$scope.volunteers[index].name,
+                id:$scope.volunteers[index].volunteerid
+            }
+        }).done(function(res){
+            console.log(res);
+            $scope.get();
+        });
+    };
+    $scope.post = function(){
+        $.ajax({
+            type:"POST",
+            url:"/api/volunteers",
+            data:{
+                "name":$scope.name
+            }
+        }).done(function(res){
+            console.log(res);
+            $scope.name = "";
+            $scope.get();
+        });
+    };
     $scope.get = function(){
         $.ajax({
             type:"GET",
@@ -17,6 +52,5 @@ app.controller('ctrl',function($scope){
             console.log(res);
         });
     };
-
     $scope.get();
 });

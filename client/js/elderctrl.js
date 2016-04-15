@@ -2,9 +2,7 @@ var app = angular.module('app', []);
 
 app.controller('ctrl',function($scope){
     $scope.elders = [];
-    $scope.commas = function commas(items) {
-        return items.join(",");
-    };
+
     $scope.delete = function(index){
         $.ajax({
             type:"DELETE",
