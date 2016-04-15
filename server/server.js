@@ -26,6 +26,18 @@ app.get("/", function(req, res){
     res.sendFile("client/html/elders.html", { root : "./"})
 });
 
+app.get("/elders", function(req, res){
+    res.sendFile("client/html/elders.html", { root : "./"})
+});
+
+app.get("/volunteers", function(req, res){
+    res.sendFile("client/html/volunteers.html", { root : "./"})
+});
+
+app.get("/requests", function(req, res){
+    res.sendFile("client/html/requests.html", { root : "./"})
+});
+
 router.route('/elders')
     .post(function (req, res) {
         connection.query('insert INTO elders (name, location) VALUES (\'' + req.body.name + '\',\'' + req.body.location + '\')', function(err, rows, fields) {

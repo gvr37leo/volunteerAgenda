@@ -1,3 +1,44 @@
-//
-   Created by paul on 4/14/2016.
+doctype html
+html(lang=en ng-app='app')
+    head
+        title requests
+        include headDependencies
+    body(ng-controller='ctrl')
+        include navbar
+        .fluid-container
+            .row
+                .col-md-8.col-md-offset-2
+                    h1 Transport
+                    table.table.table-striped
+                        thead
+                            tr
+                                th time
+                                th destination
+                                th passengers
+                                th driver
+                                th
+                                th
+                        tbody
+                            tr(ng-repeat='transport in transports')
+                                td {{transport.time}}
+                                td {{transport.destination}}
+                                td {{commas(transport.passengers)}}
+                                td {{transport.driver}}
+                                td
+                                    button.btn.btn-warning(type='button') Save
+                                td
+                                    button.btn.btn-danger(type='button') Delete
+                            tr
+                                td
+                                    input.form-control(type='text')
+                                td
+                                    input.form-control(type='text')
+                                td
+                                    input.form-control(type='text')
+                                td
+                                    input.form-control(type='text')
+                                td
+                                    button.btn.btn-primary(type='button') Add
 
+    include bodyDependencies
+    script(src='../js/requestctrl.js')

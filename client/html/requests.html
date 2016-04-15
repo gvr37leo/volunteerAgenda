@@ -1,53 +1,74 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<html ng-app="app">
+  <head>
+    <title>requests</title>
+    <link rel="shortcut icon" type="image/png" href="/calendar.png">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/custom.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
-</head>
-<body ng-controller="ctrl">
+  </head>
+  <body ng-controller="ctrl">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav">
+          <li><a href="/">elders</a></li>
+          <li><a href="requests">requests</a></li>
+          <li><a href="volunteers">volunteers</a></li>
+        </ul>
+      </div>
+    </nav>
     <div class="fluid-container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h1>Transport</h1>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>time</th>
-                            <th>destination</th>
-                            <th>passengers</th>
-                            <th>driver</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="transport in transports">
-                            <td>{{transport.time}}</td>
-                            <td>{{transport.destination}}</td>
-                            <td>{{commas(transport.passengers)}}</td>
-                            <td>{{transport.driver}}</td>
-                            <td><button type="button" class="btn btn-warning">Save</button></td>
-                            <td><button type="button" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" class="form-control"></td>
-                            <td><input type="text" class="form-control"></td>
-                            <td><input type="text" class="form-control"></td>
-                            <td><input type="text" class="form-control"></td>
-                            <td><button type="button" class="btn btn-primary">Add</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <h1>Transport</h1>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>time</th>
+                <th>destination</th>
+                <th>passengers</th>
+                <th>driver</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="transport in transports">
+                <td>{{transport.time}}</td>
+                <td>{{transport.destination}}</td>
+                <td>{{commas(transport.passengers)}}</td>
+                <td>{{transport.driver}}</td>
+                <td>
+                  <button type="button" class="btn btn-warning">Save</button>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-danger">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text" class="form-control">
+                </td>
+                <td>
+                  <input type="text" class="form-control">
+                </td>
+                <td>
+                  <input type="text" class="form-control">
+                </td>
+                <td>
+                  <input type="text" class="form-control">
+                </td>
+                <td>
+                  <button type="button" class="btn btn-primary">Add</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="../js/requestctrl.js"></script>
-</body>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="../js/requestctrl.js"></script>
 </html>

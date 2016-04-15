@@ -1,3 +1,38 @@
-//
-   Created by paul on 4/14/2016.
+doctype html
+html(lang='en' ng-app='app')
+    head
+        title elders
+        include headDependencies
+    body(ng-controller='ctrl')
+        include navbar
+        .fluid-container
+            .row
+                .col-md-8.col-md-offset-2
+                    h1 Elders
+                    table.table.table-striped
+                        thead
+                            tr
+                                th name
+                                th location
+                                th
+                                th
+                        tbody
+                            tr(ng-repeat='elder in elders track by $index')
+                                td
+                                    input.form-control(type='text', ng-model='elders[$index].name')
+                                td
+                                    input.form-control(type='text', ng-model='elders[$index].location')
+                                td
+                                    button.btn.btn-warning(type='button', ng-click='update($index)') Save
+                                td
+                                    button.btn.btn-danger(type='button', ng-click='delete($index)') Delete
+                            tr
+                                td
+                                    input.form-control(type='text', ng-model='name')
+                                td
+                                    input.form-control(type='text', ng-model='location')
+                                td
+                                    button.btn.btn-primary(type='button', ng-click='post()') Add
 
+    include bodyDependencies
+    script(src='../js/elderctrl.js')
