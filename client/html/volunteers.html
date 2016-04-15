@@ -11,16 +11,16 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <ul class="nav navbar-nav">
-          <li><a href="/">elders</a></li>
-          <li><a href="requests">requests</a></li>
-          <li><a href="volunteers">volunteers</a></li>
+          <li><a href="/elders">elders</a></li>
+          <li><a href="/requests">requests</a></li>
+          <li><a href="/volunteers">volunteers</a></li>
         </ul>
       </div>
     </nav>
     <div class="fluid-container">
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
-          <h1>Elders</h1>
+          <h1>Volunteers</h1>
           <table class="table table-striped">
             <thead>
               <tr>
@@ -30,9 +30,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="elder in elders track by $index">
+              <tr ng-repeat="volunteer in volunteers track by $index">
                 <td>
-                  <input type="text" ng-model="elders[$index].name" class="form-control">
+                  <input type="text" ng-model="volunteers[$index].name" class="form-control">
                 </td>
                 <td>
                   <button type="button" ng-click="update($index)" class="btn btn-warning">Save</button>

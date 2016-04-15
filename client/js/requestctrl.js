@@ -1,17 +1,20 @@
 var app = angular.module('app', []);
 
 app.controller('ctrl',function($scope){
-    $scope.transports = [];
+    $scope.requests = [];
     $scope.commas = function commas(items) {
         return items.join(",");
     };
 
 
-    $.ajax({
-        url:"/volunteerAgenda/resources/transports.json"
-    }).done(function(res){
-        $scope.transports = res.transports;
-        $scope.$apply();
-        console.log(res);
-    });
+    $scope.get = function(){
+        $.ajax({
+            type:"GET",
+            url:"/api/requests"
+        }).done(function(res){
+            $scope.requests = res;
+            $scope.$apply();
+            console.log(res);
+        });
+    };
 });

@@ -8,7 +8,7 @@ html(lang=en ng-app=app)
         .fluid-container
             .row
                 .col-md-8.col-md-offset-2
-                    h1 Elders
+                    h1 Volunteers
                     table.table.table-striped
                         thead
                             tr
@@ -16,9 +16,9 @@ html(lang=en ng-app=app)
                                 th
                                 th
                         tbody
-                            tr(ng-repeat='elder in elders track by $index')
+                            tr(ng-repeat='volunteer in volunteers track by $index')
                                 td
-                                    input.form-control(type='text', ng-model='elders[$index].name')
+                                    input.form-control(type='text', ng-model='volunteers[$index].name')
                                 td
                                     button.btn.btn-warning(type='button', ng-click='update($index)') Save
                                 td

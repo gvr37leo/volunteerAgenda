@@ -104,3 +104,7 @@ router.route('/requests')
     //    });
     //});
 
+app.get('*', function(req, res){
+    res.sendfile('client/html/404.html', 404);
+});
+
