@@ -21,9 +21,9 @@ html(lang=en ng-app='app')
                         tbody
                             tr(ng-repeat='request in requests track by $index')
                                 td
-                                    input.form-control(type='text', ng-model='request.elderid')
+                                    input.form-control(type='text', ng-model='elders[request.elderid].name')
                                 td
-                                    input.form-control(type='text', ng-model='request.volunteerid')
+                                    input.form-control(type='text', ng-model='volunteers[request.volunteerid].name')
                                 td
                                     input.form-control(type='text', ng-model='request.time')
                                 td
@@ -34,15 +34,15 @@ html(lang=en ng-app='app')
                                     button.btn.btn-danger(type='button', ng-click='delete($index)') Delete
                             tr
                                 td
-                                    input.form-control(type='text')
+                                    input.form-control(type='text', ng-model='elderid', id='elderid')
                                 td
-                                    input.form-control(type='text')
+                                    input.form-control(type='text', ng-model='volunteerid', id='volunteerid')
                                 td
-                                    input.form-control(type='text')
+                                    input.form-control(type='text', ng-model='time')
                                 td
-                                    input.form-control(type='text')
+                                    input.form-control(type='text', ng-model='location')
                                 td
-                                    button.btn.btn-primary(type='button') Add
+                                    button.btn.btn-primary(type='button' ng-click='post()') Add
 
     include bodyDependencies
     script(src='../js/requestctrl.js')

@@ -2,13 +2,15 @@ create table elders(
   elderid int not null auto_increment,
   name varchar(40) not null,
   location varchar(40) not null,
-  primary key(elderid)
+  primary key(elderid),
+  CONSTRAINT UNIQUE (name)
 );
 
 create table volunteers(
   volunteerid int not null auto_increment,
   name varchar(40) not null,
-  primary key(volunteerid)
+  primary key(volunteerid),
+  CONSTRAINT UNIQUE (name)
 );
 
 create table requests(

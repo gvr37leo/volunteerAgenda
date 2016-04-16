@@ -50,12 +50,12 @@ router.route('/elders')
         });
     })
     .delete(function(req, res){
-        connection.query('delete from elders where elderid =' + req.body.id, function(err, rows, fields){
+        connection.query('delete from elders where elderid =' + req.body.elderid, function(err, rows, fields){
             res.send('deleted');
         });
     })
     .put(function(req, res){
-        connection.query('update elders set name = \'' + req.body.name + '\', location=\'' + req.body.location + '\' where elderid =' + req.body.id, function(err, rows, fields){
+        connection.query('update elders set name = \'' + req.body.name + '\', location=\'' + req.body.location + '\' where elderid =' + req.body.elderid, function(err, rows, fields){
             res.send('updated');
         });
     });
@@ -72,39 +72,43 @@ router.route('/volunteers')
         });
     })
     .delete(function(req, res){
-        connection.query('delete from volunteers where volunteerid =' + req.body.id, function(err, rows, fields){
+        connection.query('delete from volunteers where volunteerid =' + req.body.volunteerid, function(err, rows, fields){
             res.send('deleted');
         });
     })
     .put(function(req, res){
-        connection.query('update volunteers set name = \'' + req.body.name + '\' where volunteerid =' + req.body.id, function(err, rows, fields){
+        connection.query('update volunteers set name = \'' + req.body.name + '\' where volunteerid =' + req.body.volunteerid, function(err, rows, fields){
             res.send('updated');
         });
     });
 
 router.route('/requests')
-    //.post(function (req, res) {
-    //    connection.query('insert INTO volunteers (name) VALUES (\'' + req.body.name + '\')', function(err, rows, fields) {
-    //        res.send('posted');
-    //    });
-    //})
-    .get(function(req, res){
-        connection.query('select * from requests', function(err, rows, fields){
-            res.send(rows);
+    .post(function (req, res) {
+        console.log('insert INTO requests (elderid, volunteerid, location, time) VALUES (' + req.body.elderid + ',' + req.body.volunteerid + ',\'' + req.body.location + '\',\'' + req.body.time + '\')');
+        connection.query('insert INTO requests (elderid, volunteerid, location, time) VALUES (' + req.body.elderid + ',' + req.body.volunteerid + ',\'' + req.body.location + '\',\'' + req.body.time + '\')', function(err, rows, fields) {
+            res.send('posted');
         });
     })
-    //.delete(function(req, res){
-    //    connection.query('delete from volunteers where volunteerid =' + req.body.id, function(err, rows, fields){
-    //        res.send('deleted');
-    //    });
-    //})
-    //.put(function(req, res){
-    //    connection.query('update volunteers set name = \'' + req.body.name + '\' where volunteerid =' + req.body.id, function(err, rows, fields){
-    //        res.send('updated');
-    //    });
-    //});
+    .get(function(req, res){
+        connection.query('select requestid,elderid,volunteerid,location,DATE_FORMAT(time,\'%Y-%c-%d %T\') AS time  from requests', function(err, rows, fields){
+            res.send(rows);
+            console.log(rows[0]);
+        });
+    })
+    .delete(function(req, res){
+        console.log('delete from requests where requestid = ' + req.body.id);
+        connection.query('delete from requests where requestid = ' + req.body.requestid, function(err, rows, fields){
+            res.send('deleted');
+        });
+    })
+    .put(function(req, res){
+        console.log('update requests set volunteerid = ' + req.body.volunteerid + ',elderid = ' + req.body.elderid + ',location =\'' + req.body.location + '\',time = \'' + req.body.time + '\' where requestid = ' + req.body.requestid);
+        connection.query('update requests set volunteerid = ' + req.body.volunteerid + ',elderid = ' + req.body.elderid + ',location =\'' + req.body.location + '\',time = \'' + req.body.time + '\' where requestid = ' + req.body.requestid, function(err, rows, fields){
+            res.send('updated');
+        });
+    });
 
 app.get('*', function(req, res){
-    res.sendfile('client/html/404.html', 404);
+    res.sendFile('client/html/404.html', 404);
 });
 

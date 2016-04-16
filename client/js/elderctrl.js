@@ -8,7 +8,7 @@ app.controller('ctrl',function($scope){
             type:"DELETE",
             url:"/api/elders",
             data:{
-                id:$scope.elders[index].elderid
+                elderid:$scope.elders[index].elderid
             }
         }).done(function(res){
             console.log(res);
@@ -22,7 +22,7 @@ app.controller('ctrl',function($scope){
             data:{
                 name:$scope.elders[index].name,
                 location:$scope.elders[index].location,
-                id:$scope.elders[index].elderid
+                elderid:$scope.elders[index].elderid
             }
         }).done(function(res){
             console.log(res);

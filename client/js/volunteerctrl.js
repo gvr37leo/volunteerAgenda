@@ -9,7 +9,7 @@ app.controller('ctrl',function($scope){
             type:"DELETE",
             url:"/api/volunteers",
             data:{
-                id:$scope.volunteers[index].volunteerid
+                volunteerid:$scope.volunteers[index].volunteerid
             }
         }).done(function(res){
             console.log(res);
@@ -22,7 +22,7 @@ app.controller('ctrl',function($scope){
             url:"/api/volunteers",
             data:{
                 name:$scope.volunteers[index].name,
-                id:$scope.volunteers[index].volunteerid
+                volunteerid:$scope.volunteers[index].volunteerid
             }
         }).done(function(res){
             console.log(res);
