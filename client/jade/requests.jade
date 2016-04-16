@@ -5,7 +5,7 @@ html(lang=en ng-app='app')
         include headDependencies
     body(ng-controller='ctrl')
         include navbar
-        .fluid-container
+        .container-fluid
             .row
                 .col-md-8.col-md-offset-2
                     h1 Requests
@@ -21,9 +21,9 @@ html(lang=en ng-app='app')
                         tbody
                             tr(ng-repeat='request in requests track by $index')
                                 td
-                                    input.form-control(type='text', ng-model='elders[request.elderid].name')
+                                    input.form-control(type='text', ng-model='elders[$index]')
                                 td
-                                    input.form-control(type='text', ng-model='volunteers[request.volunteerid].name')
+                                    input.form-control(type='text', ng-model='volunteers[$index]')
                                 td
                                     input.form-control(type='text', ng-model='request.time')
                                 td
@@ -38,7 +38,7 @@ html(lang=en ng-app='app')
                                 td
                                     input.form-control(type='text', ng-model='volunteerid', id='volunteerid')
                                 td
-                                    input.form-control(type='text', ng-model='time')
+                                    input.form-control(type='text' ng-model='time' id='inpTime')
                                 td
                                     input.form-control(type='text', ng-model='location')
                                 td
