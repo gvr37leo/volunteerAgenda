@@ -25,21 +25,24 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>elderid</th>
-                <th>volunteerid</th>
-                <th>time</th>
+                <th>elder</th>
+                <th>volunteer</th>
                 <th>location</th>
-                <th></th>
+                <th>time</th>
+                <th>timeBack</th>
+                <th>requestType</th>
+                <th>retour</th>
+                <th>note</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="request in requests track by $index">
                 <td>
-                  <input type="text" ng-model="elders[$index]" class="form-control">
+                  <input type="text" ng-model="elders[$index]" uib-typeahead="elder for elder in uniqueElders | filter:$viewValue" typeahead-show-hint="true" typeahead-min-length="0" class="form-control">
                 </td>
                 <td>
-                  <input type="text" ng-model="volunteers[$index]" class="form-control">
+                  <input type="text" ng-model="volunteers[$index]" uib-typeahead="volunteer for volunteer in uniqueVolunteers | filter:$viewValue" typeahead-show-hint="true" typeahead-min-length="0" class="form-control">
                 </td>
                 <td>
                   <input type="text" ng-model="request.time" class="form-control">
@@ -56,10 +59,10 @@
               </tr>
               <tr>
                 <td>
-                  <input type="text" ng-model="elderid" id="elderid" class="form-control">
+                  <input type="text" ng-model="elderid" uib-typeahead="elder for elder in uniqueElders | filter:$viewValue" typeahead-show-hint="true" typeahead-min-length="0" class="form-control">
                 </td>
                 <td>
-                  <input type="text" ng-model="volunteerid" id="volunteerid" class="form-control">
+                  <input type="text" ng-model="volunteerid" uib-typeahead="volunteer for volunteer in uniqueVolunteers | filter:$viewValue" typeahead-show-hint="true" typeahead-min-length="0" class="form-control">
                 </td>
                 <td>
                   <input type="text" ng-model="time" id="inpTime" class="form-control">
@@ -81,6 +84,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.2/ui-bootstrap-tpls.min.js"></script>
   <script src="../lib/bootstrap-datetimepicker.min.js"></script>
   <script src="../js/requestctrl.js"></script>
 </html>

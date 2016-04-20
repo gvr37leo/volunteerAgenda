@@ -12,18 +12,21 @@ html(lang=en ng-app='app')
                     table.table.table-striped
                         thead
                             tr
-                                th elderid
-                                th volunteerid
-                                th time
+                                th elder
+                                th volunteer
                                 th location
-                                th
+                                th time
+                                th timeBack
+                                th requestType
+                                th retour
+                                th note
                                 th
                         tbody
                             tr(ng-repeat='request in requests track by $index')
                                 td
-                                    input.form-control(type='text', ng-model='elders[$index]')
+                                    input.form-control(type='text', ng-model='elders[$index]', uib-typeahead='elder for elder in uniqueElders | filter:$viewValue', typeahead-show-hint='true', typeahead-min-length='0')
                                 td
-                                    input.form-control(type='text', ng-model='volunteers[$index]')
+                                    input.form-control(type='text', ng-model='volunteers[$index]', uib-typeahead='volunteer for volunteer in uniqueVolunteers', typeahead-show-hint='true', typeahead-min-length='0')
                                 td
                                     input.form-control(type='text', ng-model='request.time')
                                 td
@@ -34,9 +37,9 @@ html(lang=en ng-app='app')
                                     button.btn.btn-danger(type='button', ng-click='delete($index)') Delete
                             tr
                                 td
-                                    input.form-control(type='text', ng-model='elderid', id='elderid')
+                                    input.form-control(type='text', ng-model='elderid', uib-typeahead='elder for elder in uniqueElders', typeahead-show-hint='true', typeahead-min-length='0')
                                 td
-                                    input.form-control(type='text', ng-model='volunteerid', id='volunteerid')
+                                    input.form-control(type='text', ng-model='volunteerid', uib-typeahead='volunteer for volunteer in uniqueVolunteers', typeahead-show-hint='true', typeahead-min-length='0')
                                 td
                                     input.form-control(type='text' ng-model='time' id='inpTime')
                                 td

@@ -98,11 +98,9 @@ router.route('/requests')
     .get(function(req, res){
         connection.query('select requestid,elderid,volunteerid,location,DATE_FORMAT(time,\'%Y-%c-%d %T\') AS time  from requests', function(err, rows, fields){
             res.send(rows);
-            console.log(rows[0]);
         });
     })
     .delete(function(req, res){
-        console.log('delete from requests where requestid = ' + req.body.id);
         connection.query('delete from requests where requestid = ' + req.body.requestid, function(err, rows, fields){
             if(err)res.send(false);
             else res.send(true);
@@ -118,4 +116,22 @@ router.route('/requests')
 app.get('*', function(req, res){
     res.sendFile('client/html/404.html', { root : "./"});
 });
+
+function generateUpdate(array, id){
+
+}
+
+function generateCreate(array){
+
+}
+
+function generateRead(table){
+
+}
+
+function generateDelete(id){
+
+}
+
+
 

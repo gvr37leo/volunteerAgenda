@@ -1,4 +1,4 @@
-var app = angular.module('app', []);
+var app = angular.module('app', ["ui.bootstrap"]);
 
 app.controller('ctrl',function($scope){
     $scope.requests = [];
@@ -10,25 +10,15 @@ app.controller('ctrl',function($scope){
     $scope.volunteersbyname = {};
     $scope.eldersbyname = {};
 
+    $scope.uniqueElders = [];
+    $scope.uniqueVolunteers = [];
+
     $.ajax({
         type:"GET",
         url:"/api/volunteers"
     }).done(function(res){
-        $("#volunteerid").typeahead({
-            source:res,
-            minLength:0,
-            showHintOnFocus:true,
-            autoSelect:false,
-            updater:function(item){
-                $scope.volunteerid = item.name;
-                $scope.$apply();
-                return item.name;
-            },
-            displayText:function(item){
-                return item.name;
-            }
-        });
         res.forEach(function(volunteer, i){
+            $scope.uniqueVolunteers[i] = volunteer.name;
             //$scope.volunteers[i] = volunteer.name;
             $scope.volunteersbyid[volunteer.volunteerid] = volunteer;
             $scope.volunteersbyname[volunteer.name] = volunteer;
@@ -39,21 +29,8 @@ app.controller('ctrl',function($scope){
         type:"GET",
         url:"/api/elders"
     }).done(function(res){
-        $("#elderid").typeahead({
-            source:res,
-            minLength:0,
-            showHintOnFocus:true,
-            autoSelect:false,
-            updater:function(item){
-                $scope.elderid = item.name;
-                $scope.$apply();
-                return item.name;
-            },
-            displayText:function(item){
-                return item.name;
-            }
-        });
         res.forEach(function(elder, i){
+            $scope.uniqueElders[i] = elder.name;
             //$scope.elders[i] = elder.name;
             $scope.eldersbyid[elder.elderid] = elder;
             $scope.eldersbyname[elder.name] = elder;
@@ -134,9 +111,5 @@ app.controller('ctrl',function($scope){
     });
     inpTime.on("dp.change", function(e){
         $scope.time = e.date.format("YYYY-MM-DD HH:mm");
-        $scope.$apply();
     });
 });
-
-
-
