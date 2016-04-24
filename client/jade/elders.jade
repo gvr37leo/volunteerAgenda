@@ -13,30 +13,47 @@ html(lang='en' ng-app='app')
                         thead
                             tr
                                 th name
-                                th location
+                                th address
                                 th postcode
-                                th city
-                                th telephone
                                 th mobile
                                 th note
                                 th movement_aid
+                                th
+                                th
                         tbody
                             tr(ng-repeat='elder in elders track by $index')
                                 td
-                                    input.form-control(type='text', ng-model='elders[$index].name')
+                                    input.form-control(type='text', ng-model='elders[$index].elderName')
                                 td
-                                    input.form-control(type='text', ng-model='elders[$index].location')
+                                    input.form-control(type='text', ng-model='elders[$index].address')
+                                td
+                                    input.form-control(type='text', ng-model='elders[$index].postcode')
+                                td
+                                    input.form-control(type='text', ng-model='elders[$index].mobile')
+                                td
+                                    input.form-control(type='text', ng-model='elders[$index].note')
+                                td
+                                    input.form-control(type='text', ng-model='elders[$index].movementAidid')
                                 td
                                     button.btn.btn-warning(type='button', ng-click='update($index)') Save
                                 td
                                     button.btn.btn-danger(type='button', ng-click='delete($index)') Delete
                             tr
                                 td
-                                    input.form-control(type='text', ng-model='name')
+                                    input.form-control(type='text', ng-model='elderName')
                                 td
-                                    input.form-control(type='text', ng-model='location')
+                                    input.form-control(type='text', ng-model='address')
+                                td
+                                    input.form-control(type='text', ng-model='postcode')
+                                td
+                                    input.form-control(type='text', ng-model='mobile')
+                                td
+                                    input.form-control(type='text', ng-model='note')
+                                td
+                                    input.form-control(type='text', ng-model='movementAidid')
                                 td
                                     button.btn.btn-primary(type='button', ng-click='post()') Add
+                                td
 
     include bodyDependencies
     script(src='../js/elderctrl.js')

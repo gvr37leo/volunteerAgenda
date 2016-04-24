@@ -7,45 +7,63 @@ html(lang=en ng-app='app')
         include navbar
         .container-fluid
             .row
-                .col-md-8.col-md-offset-2
+                .col-md-12
                     h1 Requests
                     table.table.table-striped
                         thead
                             tr
                                 th elder
                                 th volunteer
-                                th location
                                 th time
                                 th timeBack
+                                th location
                                 th requestType
                                 th retour
                                 th note
                                 th
+                                th
                         tbody
                             tr(ng-repeat='request in requests track by $index')
                                 td
-                                    input.form-control(type='text', ng-model='elders[$index]', uib-typeahead='elder for elder in uniqueElders | filter:$viewValue', typeahead-show-hint='true', typeahead-min-length='0')
+                                    typeahead(source='uniqueElders' ng-model="elders[$index]")
                                 td
-                                    input.form-control(type='text', ng-model='volunteers[$index]', uib-typeahead='volunteer for volunteer in uniqueVolunteers', typeahead-show-hint='true', typeahead-min-length='0')
+                                    typeahead(source='uniqueVolunteers' ng-model="volunteers[$index]")
                                 td
-                                    input.form-control(type='text', ng-model='request.time')
+                                    datetimepicker(model='request.time', ng-model='request.time')
+                                td
+                                    datetimepicker(model='request.timeback', ng-model='request.timeback')
                                 td
                                     input.form-control(type='text', ng-model='request.location')
+                                td
+                                    input.form-control(type='text', ng-model='request.requestTypeid')
+                                td
+                                    button.btn.btn-default(uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model='request.retour') retour
+                                td
+                                    input.form-control(type='text', ng-model='request.note')
                                 td
                                     button.btn.btn-warning(type='button', ng-click='update($index)') Save
                                 td
                                     button.btn.btn-danger(type='button', ng-click='delete($index)') Delete
                             tr
                                 td
-                                    input.form-control(type='text', ng-model='elderid', uib-typeahead='elder for elder in uniqueElders', typeahead-show-hint='true', typeahead-min-length='0')
+                                    typeahead(source='uniqueElders' ng-model="elderid")
                                 td
-                                    input.form-control(type='text', ng-model='volunteerid', uib-typeahead='volunteer for volunteer in uniqueVolunteers', typeahead-show-hint='true', typeahead-min-length='0')
+                                    typeahead(source='uniqueVolunteers' ng-model="volunteerid")
                                 td
-                                    input.form-control(type='text' ng-model='time' id='inpTime')
+                                    datetimepicker(model='time')
+                                td
+                                    datetimepicker(model='timeback')
                                 td
                                     input.form-control(type='text', ng-model='location')
                                 td
+                                    input.form-control(type='text', ng-model='requestTypeid')
+                                td
+                                    button.btn.btn-default(uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model='retour') retour
+                                td
+                                    input.form-control(type='text', ng-model='note')
+                                td
                                     button.btn.btn-primary(type='button' ng-click='post()') Add
+                                td
 
     include bodyDependencies
     script(src='../js/requestctrl.js')

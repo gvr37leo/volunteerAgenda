@@ -5,50 +5,62 @@
     <link rel="shortcut icon" type="image/png" href="/calendar.png">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/custom.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
     <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
   </head>
   <body ng-controller="ctrl">
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <ul class="nav navbar-nav">
+          <li><a href="/requests">requests</a></li>
           <li><a href="/elders">elders</a></li>
           <li><a href="/volunteers">volunteers</a></li>
-          <li><a href="/requests">requests</a></li>
         </ul>
       </div>
     </nav>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12">
           <h1>Requests</h1>
           <table class="table table-striped">
             <thead>
               <tr>
                 <th>elder</th>
                 <th>volunteer</th>
-                <th>location</th>
                 <th>time</th>
                 <th>timeBack</th>
+                <th>location</th>
                 <th>requestType</th>
                 <th>retour</th>
                 <th>note</th>
+                <th></th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="request in requests track by $index">
                 <td>
-                  <input type="text" ng-model="elders[$index]" uib-typeahead="elder for elder in uniqueElders | filter:$viewValue" typeahead-show-hint="true" typeahead-min-length="0" class="form-control">
+                  <typeahead source="uniqueElders" ng-model="elders[$index]"></typeahead>
                 </td>
                 <td>
-                  <input type="text" ng-model="volunteers[$index]" uib-typeahead="volunteer for volunteer in uniqueVolunteers | filter:$viewValue" typeahead-show-hint="true" typeahead-min-length="0" class="form-control">
+                  <typeahead source="uniqueVolunteers" ng-model="volunteers[$index]"></typeahead>
                 </td>
                 <td>
-                  <input type="text" ng-model="request.time" class="form-control">
+                  <datetimepicker model="request.time" ng-model="request.time"></datetimepicker>
+                </td>
+                <td>
+                  <datetimepicker model="request.timeback" ng-model="request.timeback"></datetimepicker>
                 </td>
                 <td>
                   <input type="text" ng-model="request.location" class="form-control">
+                </td>
+                <td>
+                  <input type="text" ng-model="request.requestTypeid" class="form-control">
+                </td>
+                <td>
+                  <button uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model="request.retour" class="btn btn-default">retour</button>
+                </td>
+                <td>
+                  <input type="text" ng-model="request.note" class="form-control">
                 </td>
                 <td>
                   <button type="button" ng-click="update($index)" class="btn btn-warning">Save</button>
@@ -59,20 +71,33 @@
               </tr>
               <tr>
                 <td>
-                  <input type="text" ng-model="elderid" uib-typeahead="elder for elder in uniqueElders | filter:$viewValue" typeahead-show-hint="true" typeahead-min-length="0" class="form-control">
+                  <typeahead source="uniqueElders" ng-model="elderid"></typeahead>
                 </td>
                 <td>
-                  <input type="text" ng-model="volunteerid" uib-typeahead="volunteer for volunteer in uniqueVolunteers | filter:$viewValue" typeahead-show-hint="true" typeahead-min-length="0" class="form-control">
+                  <typeahead source="uniqueVolunteers" ng-model="volunteerid"></typeahead>
                 </td>
                 <td>
-                  <input type="text" ng-model="time" id="inpTime" class="form-control">
+                  <datetimepicker model="time"></datetimepicker>
+                </td>
+                <td>
+                  <datetimepicker model="timeback"></datetimepicker>
                 </td>
                 <td>
                   <input type="text" ng-model="location" class="form-control">
                 </td>
                 <td>
+                  <input type="text" ng-model="requestTypeid" class="form-control">
+                </td>
+                <td>
+                  <button uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model="retour" class="btn btn-default">retour</button>
+                </td>
+                <td>
+                  <input type="text" ng-model="note" class="form-control">
+                </td>
+                <td>
                   <button type="button" ng-click="post()" class="btn btn-primary">Add</button>
                 </td>
+                <td></td>
               </tr>
             </tbody>
           </table>
@@ -82,9 +107,13 @@
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.2/ui-bootstrap-tpls.min.js"></script>
+  <!--widgets-->
   <script src="../lib/bootstrap-datetimepicker.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js" type="text/javascript"></script>
+  <!--angular and modules-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.2/ui-bootstrap-tpls.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.3.8/angular-strap.min.js"></script>
   <script src="../js/requestctrl.js"></script>
 </html>

@@ -13,26 +13,41 @@ html(lang=en ng-app='app')
                         thead
                             tr
                                 th name
-                                th mon
-                                th tue
-                                th wed
-                                th thu
-                                th fri
-                                th sat
-                                th sun
+                                th schedule
+                                th
+                                th
                         tbody
                             tr(ng-repeat='volunteer in volunteers track by $index')
                                 td
-                                    input.form-control(type='text', ng-model='volunteers[$index].name')
+                                    input.form-control(type='text', ng-model='volunteers[$index].volunteerName')
+                                td
+                                    .btn-group
+                                        button.btn.btn-default(uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model='volunteers[$index].mon') mon
+                                        button.btn.btn-default(uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model='volunteers[$index].tue') tue
+                                        button.btn.btn-default(uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model='volunteers[$index].wed') wed
+                                        button.btn.btn-default(uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model='volunteers[$index].thu') thu
+                                        button.btn.btn-default(uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model='volunteers[$index].fri') fri
+                                        button.btn.btn-default(uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model='volunteers[$index].sat') sat
+                                        button.btn.btn-default(uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model='volunteers[$index].sun') sun
                                 td
                                     button.btn.btn-warning(type='button', ng-click='update($index)') Save
                                 td
                                     button.btn.btn-danger(type='button', ng-click='delete($index)') Delete
                             tr
                                 td
-                                    input.form-control(type='text', ng-model='name')
+                                    input.form-control(type='text', ng-model='volunteerName')
+                                td
+                                    .btn-group
+                                        button.btn.btn-default(uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model='mon') mon
+                                        button.btn.btn-default(uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model='tue') tue
+                                        button.btn.btn-default(uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model='wed') wed
+                                        button.btn.btn-default(uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model='thu') thu
+                                        button.btn.btn-default(uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model='fri') fri
+                                        button.btn.btn-default(uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model='sat') sat
+                                        button.btn.btn-default(uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model='sun') sun
                                 td
                                     button.btn.btn-primary(type='button', ng-click='post()') Add
+                                td
 
     include bodyDependencies
     script(src='../js/volunteerctrl.js')

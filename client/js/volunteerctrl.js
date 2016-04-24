@@ -1,8 +1,14 @@
-var app = angular.module('app', []);
+var app = angular.module('app', ['mgcrea.ngStrap',"ui.bootstrap"]);
 
 app.controller('ctrl',function($scope){
     $scope.volunteers = [];
-
+    $scope.mon = 0;
+    $scope.tue = 0;
+    $scope.wed = 0;
+    $scope.thu = 0;
+    $scope.fri = 0;
+    $scope.sat = 0;
+    $scope.sun = 0;
 
     $scope.delete = function(index){
         $.ajax({
@@ -21,8 +27,15 @@ app.controller('ctrl',function($scope){
             type:"PUT",
             url:"/api/volunteers",
             data:{
-                name:$scope.volunteers[index].name,
-                volunteerid:$scope.volunteers[index].volunteerid
+                volunteerid:$scope.volunteers[index].volunteerid,
+                volunteerName:$scope.volunteers[index].volunteerName,
+                mon:$scope.volunteers[index].mon,
+                tue:$scope.volunteers[index].tue,
+                wed:$scope.volunteers[index].wed,
+                thu:$scope.volunteers[index].thu,
+                fri:$scope.volunteers[index].fri,
+                sat:$scope.volunteers[index].sat,
+                sun:$scope.volunteers[index].sun
             }
         }).done(function(res){
             console.log(res);
@@ -34,11 +47,25 @@ app.controller('ctrl',function($scope){
             type:"POST",
             url:"/api/volunteers",
             data:{
-                "name":$scope.name
+                "volunteerName":$scope.volunteerName,
+                "mon":$scope.mon,
+                "tue":$scope.tue,
+                "wed":$scope.wed,
+                "thu":$scope.thu,
+                "fri":$scope.fri,
+                "sat":$scope.sat,
+                "sun":$scope.sun
             }
         }).done(function(res){
             console.log(res);
-            $scope.name = "";
+            $scope.volunteerName = "";
+            $scope.mon = 0;
+            $scope.tue = 0;
+            $scope.wed = 0;
+            $scope.thu = 0;
+            $scope.fri = 0;
+            $scope.sat = 0;
+            $scope.sun = 0;
             $scope.get();
         });
     };

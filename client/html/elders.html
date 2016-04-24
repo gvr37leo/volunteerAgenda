@@ -5,16 +5,15 @@
     <link rel="shortcut icon" type="image/png" href="/calendar.png">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/custom.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
     <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
   </head>
   <body ng-controller="ctrl">
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <ul class="nav navbar-nav">
+          <li><a href="/requests">requests</a></li>
           <li><a href="/elders">elders</a></li>
           <li><a href="/volunteers">volunteers</a></li>
-          <li><a href="/requests">requests</a></li>
         </ul>
       </div>
     </nav>
@@ -26,22 +25,34 @@
             <thead>
               <tr>
                 <th>name</th>
-                <th>location</th>
+                <th>address</th>
                 <th>postcode</th>
-                <th>city</th>
-                <th>telephone</th>
                 <th>mobile</th>
                 <th>note</th>
                 <th>movement_aid</th>
+                <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="elder in elders track by $index">
                 <td>
-                  <input type="text" ng-model="elders[$index].name" class="form-control">
+                  <input type="text" ng-model="elders[$index].elderName" class="form-control">
                 </td>
                 <td>
-                  <input type="text" ng-model="elders[$index].location" class="form-control">
+                  <input type="text" ng-model="elders[$index].address" class="form-control">
+                </td>
+                <td>
+                  <input type="text" ng-model="elders[$index].postcode" class="form-control">
+                </td>
+                <td>
+                  <input type="text" ng-model="elders[$index].mobile" class="form-control">
+                </td>
+                <td>
+                  <input type="text" ng-model="elders[$index].note" class="form-control">
+                </td>
+                <td>
+                  <input type="text" ng-model="elders[$index].movementAidid" class="form-control">
                 </td>
                 <td>
                   <button type="button" ng-click="update($index)" class="btn btn-warning">Save</button>
@@ -52,14 +63,27 @@
               </tr>
               <tr>
                 <td>
-                  <input type="text" ng-model="name" class="form-control">
+                  <input type="text" ng-model="elderName" class="form-control">
                 </td>
                 <td>
-                  <input type="text" ng-model="location" class="form-control">
+                  <input type="text" ng-model="address" class="form-control">
+                </td>
+                <td>
+                  <input type="text" ng-model="postcode" class="form-control">
+                </td>
+                <td>
+                  <input type="text" ng-model="mobile" class="form-control">
+                </td>
+                <td>
+                  <input type="text" ng-model="note" class="form-control">
+                </td>
+                <td>
+                  <input type="text" ng-model="movementAidid" class="form-control">
                 </td>
                 <td>
                   <button type="button" ng-click="post()" class="btn btn-primary">Add</button>
                 </td>
+                <td></td>
               </tr>
             </tbody>
           </table>
@@ -69,9 +93,13 @@
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.2/ui-bootstrap-tpls.min.js"></script>
+  <!--widgets-->
   <script src="../lib/bootstrap-datetimepicker.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js" type="text/javascript"></script>
+  <!--angular and modules-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.2/ui-bootstrap-tpls.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.3.8/angular-strap.min.js"></script>
   <script src="../js/elderctrl.js"></script>
 </html>

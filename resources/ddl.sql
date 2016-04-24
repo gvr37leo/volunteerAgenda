@@ -13,10 +13,8 @@ CREATE TABLE requestType(
 create table elders(
   elderid int not null auto_increment,
   elderName varchar(40) not null,
-  location varchar(40) not null,
+  address varchar(40) not null,
   postcode VARCHAR(40) not null,
-  city VARCHAR(40) NOT NULL,
-  telephone VARCHAR(40) NULL,
   mobile VARCHAR(40) NULL,
   note VARCHAR(255) NULL,
   movementAidid INT NULL,

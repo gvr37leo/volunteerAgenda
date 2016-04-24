@@ -20,9 +20,13 @@ app.controller('ctrl',function($scope){
             type:"PUT",
             url:"/api/elders",
             data:{
-                name:$scope.elders[index].name,
-                location:$scope.elders[index].location,
-                elderid:$scope.elders[index].elderid
+                elderid:$scope.elders[index].elderid,
+                elderName:$scope.elders[index].elderName,
+                address:$scope.elders[index].address,
+                postcode:$scope.elders[index].postcode,
+                mobile:$scope.elders[index].mobile,
+                note:$scope.elders[index].note,
+                movementAidid:$scope.elders[index].movementAidid
             }
         }).done(function(res){
             console.log(res);
@@ -34,13 +38,21 @@ app.controller('ctrl',function($scope){
             type:"POST",
             url:"/api/elders",
             data:{
-                "name":$scope.name,
-                "location":$scope.location
+                "movementAidid":$scope.movementAidid,
+                "elderName":$scope.elderName,
+                "address":$scope.address,
+                "postcode":$scope.postcode,
+                "mobile":$scope.mobile,
+                "note":$scope.note
             }
         }).done(function(res){
             console.log(res);
-            $scope.name = "";
-            $scope.location = "";
+            $scope.movementAidid = "";
+            $scope.elderName = "";
+            $scope.address = "";
+            $scope.postcode = "";
+            $scope.mobile = "";
+            $scope.note = "";
             $scope.get();
         });
     };
