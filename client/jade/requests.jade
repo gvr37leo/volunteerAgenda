@@ -9,6 +9,12 @@ html(lang=en ng-app='app')
             .row
                 .col-md-12
                     h1 Requests
+                    .row
+                        .col-md-4
+                            .input-group
+                                span#addon.input-group-addon
+                                    i.glyphicon.glyphicon-search
+                                input.form-control(ng-model='searchText', type='text', placeholder='Search', aria-describedby='addon')
                     table.table.table-striped
                         thead
                             tr
@@ -23,7 +29,7 @@ html(lang=en ng-app='app')
                                 th
                                 th
                         tbody
-                            tr(ng-repeat='request in requests track by $index')
+                            tr(ng-repeat='request in requests | filter:searchText track by $index')
                                 td
                                     typeahead(source='uniqueElders' ng-model="request.elderName")
                                 td

@@ -1,6 +1,12 @@
 var mysql = require("mysql");
 var express = require("express");
 var bodyParser = require("body-parser");
+var jsonSql = require('json-sql')({
+    separatedValues:false,
+    namedValues:false,
+    //wrappedIdentifiers:false,
+    dialect:"mysql"
+});
 var app = express();
 var port = 8000;
 
@@ -39,8 +45,17 @@ app.get("/requests", function(req, res){
 
 router.route('/elders')
     .post(function (req, res) {
-        var query = generateCreate('elders',['movementAidid','elderName','address','postcode','mobile','note'],req.body,[true,false,false,false,false,false]);
-        connection.query(query, function(err, rows, fields) {
+        deleteEmptyKeys(req.body);
+        var sql = jsonSql.build({
+            type: 'insert',
+            table: 'elders',
+            //fields: for optional null value injection
+            values: req.body
+        });
+        console.log(sql.query);
+        //var query = generateCreate('elders',['movementAidid','elderName','address','postcode','mobile','note'],req.body,[true,false,false,false,false,false]);
+        //console.log(query);
+        connection.query(sql.query, function(err, rows, fields) {
             if(err)res.send(false);
             else res.send(true);
         });
@@ -103,7 +118,7 @@ router.route('/requests')
     })
     .get(function(req, res){
         //'select requestid,elderid,volunteerid,location,DATE_FORMAT(time,\'%Y-%c-%d %T\') AS time  from requests'
-        connection.query('select requestid,elderid,volunteerid,requestTypeid,location,DATE_FORMAT(time,\'%Y-%c-%d %T\') AS time,DATE_FORMAT(timeback,\'%Y-%c-%d %T\') AS timeback,retour,note from requests', function(err, rows, fields){
+        connection.query('select requestid,elderid,volunteerid,requestTypeid,location,DATE_FORMAT(time,\'%Y-%m-%d %T\') AS time,DATE_FORMAT(timeback,\'%Y-%c-%d %T\') AS timeback,retour,note from requests', function(err, rows, fields){
             res.send(rows);
         });
     })
@@ -126,6 +141,16 @@ app.get('*', function(req, res){
 });
 
 //looks like mysql has something that converts json objects to sql queries
+
+function deleteEmptyKeys(object){
+    for (var key in object) {
+        if (object.hasOwnProperty(key)) {
+            if(object[key] == ""){
+                delete object[key];
+            }
+        }
+    }
+}
 
 function generateUpdate(table, array,reqbody ,isintarray, id){
     //'update elders set name = \'' + req.body.name + '\', location=\'' + req.body.location + '\' where elderid =' + req.body.elderid

@@ -149,6 +149,7 @@ app.directive('datetimepicker', function() {
         link: function(scope, elem, attrs){
             elem.datetimepicker({
                 format:"YYYY-MM-DD HH:mm",
+                useCurrent:false,
                 widgetPositioning:{
                     horizontal: 'auto',
                     vertical: 'bottom'

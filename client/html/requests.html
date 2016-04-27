@@ -4,8 +4,8 @@
     <title>requests</title>
     <link rel="shortcut icon" type="image/png" href="/calendar.png">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/custom.css">
     <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="../css/custom.css">
   </head>
   <body ng-controller="ctrl">
     <nav class="navbar navbar-default">
@@ -21,6 +21,13 @@
       <div class="row">
         <div class="col-md-12">
           <h1>Requests</h1>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="input-group"><span id="addon" class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                <input ng-model="searchText" type="text" placeholder="Search" aria-describedby="addon" class="form-control">
+              </div>
+            </div>
+          </div>
           <table class="table table-striped">
             <thead>
               <tr>
@@ -37,7 +44,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="request in requests track by $index">
+              <tr ng-repeat="request in requests | filter:searchText track by $index">
                 <td>
                   <typeahead source="uniqueElders" ng-model="request.elderName"></typeahead>
                 </td>
