@@ -1,16 +1,18 @@
 var app = angular.module('app', ["ui.bootstrap"]);
 
 app.controller('ctrl',function($scope){
+    //rows
     $scope.requests = [];
     $scope.volunteers = [];
     $scope.elders = [];
 
+    //dictionary's
     $scope.volunteersbyid = {};
     $scope.eldersbyid = {};
     $scope.volunteersbyname = {};
     $scope.eldersbyname = {};
 
-    $scope.rows = [];
+    //array version of dictionary for typeahead fields with only the name value
     $scope.uniqueElders = [];
     $scope.uniqueVolunteers = [];
 
@@ -20,7 +22,6 @@ app.controller('ctrl',function($scope){
     }).done(function(res){
         res.forEach(function(volunteer, i){
             $scope.uniqueVolunteers[i] = volunteer.volunteerName;
-            //$scope.volunteers[i] = volunteer.name;
             $scope.volunteersbyid[volunteer.volunteerid] = volunteer;
             $scope.volunteersbyname[volunteer.volunteerName] = volunteer;
         });
@@ -32,7 +33,6 @@ app.controller('ctrl',function($scope){
     }).done(function(res){
         res.forEach(function(elder, i){
             $scope.uniqueElders[i] = elder.elderName;
-            //$scope.elders[i] = elder.name;
             $scope.eldersbyid[elder.elderid] = elder;
             $scope.eldersbyname[elder.elderName] = elder;
         });
@@ -77,8 +77,8 @@ app.controller('ctrl',function($scope){
             type:"POST",
             url:"/api/requests",
             data:{
-                "elderid":$scope.eldersbyname[$scope.elderid].elderid,
-                "volunteerid":$scope.volunteersbyname[$scope.volunteerid].volunteerid,
+                "elderid":$scope.eldersbyname[$scope.elderName].elderid,
+                "volunteerid":$scope.volunteersbyname[$scope.volunteerName].volunteerid,
                 "requestTypeid":$scope.requestTypeid,
                 "location":$scope.location,
                 "time":$scope.time,
@@ -114,18 +114,6 @@ app.controller('ctrl',function($scope){
         });
     };
     $scope.get();
-
-    var inpTime = $("#inpTime");
-    inpTime.datetimepicker({
-        format:"YYYY-MM-DD HH:mm",
-        widgetPositioning:{
-            horizontal: 'auto',
-            vertical: 'bottom'
-        }
-    });
-    inpTime.on("dp.change", function(e){
-        $scope.time = e.date.format("YYYY-MM-DD HH:mm");
-    });
 });
 
 app.directive('typeahead', function() {

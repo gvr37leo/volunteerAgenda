@@ -46,9 +46,9 @@ html(lang=en ng-app='app')
                                     button.btn.btn-danger(type='button', ng-click='delete($index)') Delete
                             tr
                                 td
-                                    typeahead(source='uniqueElders' ng-model="elderid")
+                                    typeahead(source='uniqueElders' ng-model="elderName")
                                 td
-                                    typeahead(source='uniqueVolunteers' ng-model="volunteerid")
+                                    typeahead(source='uniqueVolunteers' ng-model="volunteerName")
                                 td
                                     datetimepicker(model='time')
                                 td
