@@ -25,9 +25,9 @@ html(lang=en ng-app='app')
                         tbody
                             tr(ng-repeat='request in requests track by $index')
                                 td
-                                    typeahead(source='uniqueElders' ng-model="elders[$index]")
+                                    typeahead(source='uniqueElders' ng-model="request.elderName")
                                 td
-                                    typeahead(source='uniqueVolunteers' ng-model="volunteers[$index]")
+                                    typeahead(source='uniqueVolunteers' ng-model="request.volunteerName")
                                 td
                                     datetimepicker(model='request.time', ng-model='request.time')
                                 td
@@ -50,9 +50,9 @@ html(lang=en ng-app='app')
                                 td
                                     typeahead(source='uniqueVolunteers' ng-model="volunteerName")
                                 td
-                                    datetimepicker(model='time')
+                                    datetimepicker(model='time' ng-model='time')
                                 td
-                                    datetimepicker(model='timeback')
+                                    datetimepicker(model='timeback' ng-model='timeback')
                                 td
                                     input.form-control(type='text', ng-model='location')
                                 td

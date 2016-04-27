@@ -39,10 +39,10 @@
             <tbody>
               <tr ng-repeat="request in requests track by $index">
                 <td>
-                  <typeahead source="uniqueElders" ng-model="elders[$index]"></typeahead>
+                  <typeahead source="uniqueElders" ng-model="request.elderName"></typeahead>
                 </td>
                 <td>
-                  <typeahead source="uniqueVolunteers" ng-model="volunteers[$index]"></typeahead>
+                  <typeahead source="uniqueVolunteers" ng-model="request.volunteerName"></typeahead>
                 </td>
                 <td>
                   <datetimepicker model="request.time" ng-model="request.time"></datetimepicker>
@@ -77,10 +77,10 @@
                   <typeahead source="uniqueVolunteers" ng-model="volunteerName"></typeahead>
                 </td>
                 <td>
-                  <datetimepicker model="time"></datetimepicker>
+                  <datetimepicker model="time" ng-model="time"></datetimepicker>
                 </td>
                 <td>
-                  <datetimepicker model="timeback"></datetimepicker>
+                  <datetimepicker model="timeback" ng-model="timeback"></datetimepicker>
                 </td>
                 <td>
                   <input type="text" ng-model="location" class="form-control">

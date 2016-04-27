@@ -1,16 +1,14 @@
 var app = angular.module('app', ["ui.bootstrap"]);
 
+//dictionary's
+var volunteersbyid = {};
+var eldersbyid = {};
+var volunteersbyname = {};
+var eldersbyname = {};
+
 app.controller('ctrl',function($scope){
     //rows
     $scope.requests = [];
-    $scope.volunteers = [];
-    $scope.elders = [];
-
-    //dictionary's
-    $scope.volunteersbyid = {};
-    $scope.eldersbyid = {};
-    $scope.volunteersbyname = {};
-    $scope.eldersbyname = {};
 
     //array version of dictionary for typeahead fields with only the name value
     $scope.uniqueElders = [];
@@ -21,9 +19,10 @@ app.controller('ctrl',function($scope){
         url:"/api/volunteers"
     }).done(function(res){
         res.forEach(function(volunteer, i){
+            //building dictionary
             $scope.uniqueVolunteers[i] = volunteer.volunteerName;
-            $scope.volunteersbyid[volunteer.volunteerid] = volunteer;
-            $scope.volunteersbyname[volunteer.volunteerName] = volunteer;
+            volunteersbyid[volunteer.volunteerid] = volunteer;
+            volunteersbyname[volunteer.volunteerName] = volunteer;
         });
         console.log(res);
     });
@@ -32,53 +31,21 @@ app.controller('ctrl',function($scope){
         url:"/api/elders"
     }).done(function(res){
         res.forEach(function(elder, i){
+            //building dictionary
             $scope.uniqueElders[i] = elder.elderName;
-            $scope.eldersbyid[elder.elderid] = elder;
-            $scope.eldersbyname[elder.elderName] = elder;
+            eldersbyid[elder.elderid] = elder;
+            eldersbyname[elder.elderName] = elder;
         });
         console.log(res);
     });
-
-    $scope.delete = function(index){
-        $.ajax({
-            type:"DELETE",
-            url:"/api/requests",
-            data:{
-                requestid:$scope.requests[index].requestid
-            }
-        }).done(function(res){
-            console.log(res);
-            $scope.get();
-        });
-    };
-    $scope.update = function(index){
-        $.ajax({
-            type:"PUT",
-            url:"/api/requests",
-            data:{
-                requestid:$scope.requests[index].requestid,
-                elderid:$scope.eldersbyname[$scope.elders[index]].elderid,
-                volunteerid:$scope.volunteersbyname[$scope.volunteers[index]].volunteerid,
-                location:$scope.requests[index].location,
-                requestTypeid:$scope.requests[index].requestTypeid,
-                time:$scope.requests[index].time,
-                timeback:$scope.requests[index].timeback,
-                retour:$scope.requests[index].retour,
-                note:$scope.requests[index].note
-
-            }
-        }).done(function(res){
-            console.log(res);
-            $scope.get();
-        });
-    };
+//----------------------------------------------------------------------------
     $scope.post = function(){
         $.ajax({
             type:"POST",
             url:"/api/requests",
             data:{
-                "elderid":$scope.eldersbyname[$scope.elderName].elderid,
-                "volunteerid":$scope.volunteersbyname[$scope.volunteerName].volunteerid,
+                "elderid":eldersbyname[$scope.elderName].elderid,
+                "volunteerid":volunteersbyname[$scope.volunteerName].volunteerid,
                 "requestTypeid":$scope.requestTypeid,
                 "location":$scope.location,
                 "time":$scope.time,
@@ -88,8 +55,8 @@ app.controller('ctrl',function($scope){
             }
         }).done(function(res){
             console.log(res);
-            $scope.elderid = "";
-            $scope.volunteerid = "";
+            $scope.elderName = "";
+            $scope.volunteerName = "";
             $scope.requestTypeid = "";
             $scope.location = "";
             $scope.time = "";
@@ -105,12 +72,51 @@ app.controller('ctrl',function($scope){
             url:"/api/requests"
         }).done(function(res){
             $scope.requests = res;
-            res.forEach(function(request, i){
-                $scope.volunteers[i] = $scope.volunteersbyid[request.volunteerid].volunteerName;
-                $scope.elders[i] = $scope.eldersbyid[request.elderid].elderName
+            res.forEach(function(request){
+                request.volunteerName = volunteersbyid[request.volunteerid].volunteerName;
+                request.elderName = eldersbyid[request.elderid].elderName;
+                //delete because the id isn't gonna get updated and would contain wrong data if the user changes the name
+                //id will get looked up in the dictionary with the correct name when updates occur
+                delete request.volunteerid;
+                delete request.elderid;
             });
             $scope.$apply();
             console.log(res);
+        });
+    };
+    $scope.update = function(index){
+        $.ajax({
+            type:"PUT",
+            url:"/api/requests",
+            data:{
+                requestid:$scope.requests[index].requestid,
+                //dictionary lookup of the correct id
+                elderid:eldersbyname[$scope.requests[index].elderName].elderid,
+                volunteerid:volunteersbyname[$scope.requests[index].volunteerName].volunteerid,
+
+                location:$scope.requests[index].location,
+                requestTypeid:$scope.requests[index].requestTypeid,
+                time:$scope.requests[index].time,
+                timeback:$scope.requests[index].timeback,
+                retour:$scope.requests[index].retour,
+                note:$scope.requests[index].note
+
+            }
+        }).done(function(res){
+            console.log(res);
+            $scope.get();
+        });
+    };
+    $scope.delete = function(index){
+        $.ajax({
+            type:"DELETE",
+            url:"/api/requests",
+            data:{
+                requestid:$scope.requests[index].requestid
+            }
+        }).done(function(res){
+            console.log(res);
+            $scope.get();
         });
     };
     $scope.get();
@@ -137,7 +143,10 @@ app.directive('datetimepicker', function() {
         restrict: 'AE',
         replace: 'true',
         template: '<input class="form-control" type="text">',
-        link: function(scope, elem, attrs, model){
+        scope:{
+            model:"="
+        },
+        link: function(scope, elem, attrs){
             elem.datetimepicker({
                 format:"YYYY-MM-DD HH:mm",
                 widgetPositioning:{
@@ -146,7 +155,7 @@ app.directive('datetimepicker', function() {
                 }
             });
             elem.on("dp.change", function(e){
-                scope[attrs.model] = e.date.format("YYYY-MM-DD HH:mm");
+                scope.model = e.date.format("YYYY-MM-DD HH:mm");
                 scope.$apply();//this line could be commented out since datetimepicker itself already applies the correct value to the input value
             });
         }
