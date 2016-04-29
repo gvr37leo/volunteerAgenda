@@ -43,16 +43,18 @@ app.controller('ctrl',function($scope){
         $.ajax({
             type:"POST",
             url:"/api/requests",
-            data:{
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data:JSON.stringify({
                 "elderid":eldersbyname[$scope.elderName].elderid,
                 "volunteerid":volunteersbyname[$scope.volunteerName].volunteerid,
-                "requestTypeid":$scope.requestTypeid,
+                "requestTypeid":parseInt($scope.requestTypeid),
                 "location":$scope.location,
                 "time":$scope.time,
                 "timeback":$scope.timeback,
                 "retour":$scope.retour,
                 "note":$scope.note
-            }
+            })
         }).done(function(res){
             console.log(res);
             $scope.elderName = "";
@@ -88,7 +90,9 @@ app.controller('ctrl',function($scope){
         $.ajax({
             type:"PUT",
             url:"/api/requests",
-            data:{
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data:JSON.stringify({
                 requestid:$scope.requests[index].requestid,
                 //dictionary lookup of the correct id
                 elderid:eldersbyname[$scope.requests[index].elderName].elderid,
@@ -100,8 +104,7 @@ app.controller('ctrl',function($scope){
                 timeback:$scope.requests[index].timeback,
                 retour:$scope.requests[index].retour,
                 note:$scope.requests[index].note
-
-            }
+            })
         }).done(function(res){
             console.log(res);
             $scope.get();

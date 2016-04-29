@@ -52,7 +52,7 @@ router.route('/elders')
             //fields: for optional null value injection
             values: req.body
         });
-        console.log(sql.query);
+        //console.log(sql.query);
         //var query = generateCreate('elders',['movementAidid','elderName','address','postcode','mobile','note'],req.body,[true,false,false,false,false,false]);
         //console.log(query);
         connection.query(sql.query, function(err, rows, fields) {
@@ -72,9 +72,18 @@ router.route('/elders')
         });
     })
     .put(function(req, res){
+        deleteEmptyKeys(req.body);
+        var sql = jsonSql.build({
+            type: 'update',
+            table: 'elders',
+            condition:{elderid:req.body.elderid},
+            modifier: req.body
+        });
+        //console.log(sql.query);
         //'update elders set name = \'' + req.body.name + '\', location=\'' + req.body.location + '\' where elderid =' + req.body.elderid
-        var query = generateUpdate('elders',['movementAidid','elderName','address','postcode','mobile','note'],req.body,[true,false,false,false,false,false],'elderid');
-        connection.query(query, function(err, rows, fields){
+        //var query = generateUpdate('elders',['movementAidid','elderName','address','postcode','mobile','note'],req.body,[true,false,false,false,false,false],'elderid');
+        //console.log(query);
+        connection.query(sql.query, function(err, rows, fields){
             if(err)res.send(false);
             else res.send(true);
         });
@@ -82,8 +91,17 @@ router.route('/elders')
 
 router.route('/volunteers')
     .post(function (req, res) {
-        var query = generateCreate('volunteers',['volunteerName','mon','tue','wed','thu','fri','sat','sun'],req.body,[false,true,true,true,true,true,true,true]);
-        connection.query(query, function(err, rows, fields) {
+        deleteEmptyKeys(req.body);
+        var sql = jsonSql.build({
+            type: 'insert',
+            table: 'volunteers',
+            //fields: for optional null value injection
+            values: req.body
+        });
+        //var query = generateCreate('volunteers',['volunteerName','mon','tue','wed','thu','fri','sat','sun'],req.body,[false,true,true,true,true,true,true,true]);
+        //console.log(query);
+        //console.log(sql.query);
+        connection.query(sql.query, function(err, rows, fields) {
             if(err)res.send(false);
             else res.send(true);
         });
@@ -100,8 +118,17 @@ router.route('/volunteers')
         });
     })
     .put(function(req, res){
-        var query = generateUpdate('volunteers',['volunteerName','mon','tue','wed','thu','fri','sat','sun'],req.body,[false,true,true,true,true,true,true,true],'volunteerid');
-        connection.query(query, function(err, rows, fields){
+        deleteEmptyKeys(req.body);
+        var sql = jsonSql.build({
+            type: 'update',
+            table: 'volunteers',
+            condition:{volunteerid:req.body.volunteerid},
+            modifier: req.body
+        });
+        //var query = generateUpdate('volunteers',['volunteerName','mon','tue','wed','thu','fri','sat','sun'],req.body,[false,true,true,true,true,true,true,true],'volunteerid');
+        //console.log(query);
+        //console.log(sql.query);
+        connection.query(sql.query, function(err, rows, fields){
             if(err)res.send(false);
             else res.send(true);
         });
@@ -109,9 +136,19 @@ router.route('/volunteers')
 
 router.route('/requests')
     .post(function (req, res) {
+        deleteEmptyKeys(req.body);
+        var sql = jsonSql.build({
+            type: 'insert',
+            table: 'requests',
+            //fields: for optional null value injection
+            values: req.body
+        });
         //'insert INTO requests (elderid, volunteerid, location, time) VALUES (' + req.body.elderid + ',' + req.body.volunteerid + ',\'' + req.body.location + '\',\'' + req.body.time + '\')'
-        var query = generateCreate('requests',['elderid','volunteerid','requestTypeid','location','time','timeback','retour','note'],req.body,[true,true,true,false,false,false,true,false]);
-        connection.query(query, function(err, rows, fields) {
+        //var query = generateCreate('requests',['elderid','volunteerid','requestTypeid','location','time','timeback','retour','note'],req.body,[true,true,true,false,false,false,true,false]);
+        //
+        //console.log(query);
+        //console.log(sql.query);
+        connection.query(sql.query, function(err, rows, fields) {
             if(err)res.send(false);
             else res.send(true);
         });
@@ -129,8 +166,18 @@ router.route('/requests')
         });
     })
     .put(function(req, res){
-        var query = generateUpdate('requests',['elderid','volunteerid','requestTypeid','location','time','timeback','retour','note'],req.body,[true,true,true,false,false,false,true,false],'requestid');
-        connection.query(query, function(err, rows, fields){
+        //deleteEmptyKeys(req.body);
+        //for some reason 0 values get deleted
+        var sql = jsonSql.build({
+            type: 'update',
+            table: 'requests',
+            condition:{requestid:req.body.requestid},
+            modifier: req.body
+        });
+        //var query = generateUpdate('requests',['elderid','volunteerid','requestTypeid','location','time','timeback','retour','note'],req.body,[true,true,true,false,false,false,true,false],'requestid');
+        //console.log(query);
+        console.log(sql.query);
+        connection.query(sql.query, function(err, rows, fields){
             if(err)res.send(false);
             else res.send(true);
         });
@@ -145,7 +192,7 @@ app.get('*', function(req, res){
 function deleteEmptyKeys(object){
     for (var key in object) {
         if (object.hasOwnProperty(key)) {
-            if(object[key] == ""){
+            if(object[key] == "" || object[key] == undefined){
                 delete object[key];
             }
         }

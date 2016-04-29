@@ -7,6 +7,8 @@ app.controller('ctrl',function($scope){
         $.ajax({
             type:"DELETE",
             url:"/api/elders",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
             data:{
                 elderid:$scope.elders[index].elderid
             }
@@ -19,7 +21,9 @@ app.controller('ctrl',function($scope){
         $.ajax({
             type:"PUT",
             url:"/api/elders",
-            data:{
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data:JSON.stringify({
                 elderid:$scope.elders[index].elderid,
                 elderName:$scope.elders[index].elderName,
                 address:$scope.elders[index].address,
@@ -27,7 +31,7 @@ app.controller('ctrl',function($scope){
                 mobile:$scope.elders[index].mobile,
                 note:$scope.elders[index].note,
                 movementAidid:$scope.elders[index].movementAidid
-            }
+            })
         }).done(function(res){
             console.log(res);
             $scope.get();
@@ -37,6 +41,8 @@ app.controller('ctrl',function($scope){
         $.ajax({
             type:"POST",
             url:"/api/elders",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
             data:{
                 "movementAidid":$scope.movementAidid,
                 "elderName":$scope.elderName,

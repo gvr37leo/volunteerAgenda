@@ -26,7 +26,9 @@ app.controller('ctrl',function($scope){
         $.ajax({
             type:"PUT",
             url:"/api/volunteers",
-            data:{
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data:JSON.stringify({
                 volunteerid:$scope.volunteers[index].volunteerid,
                 volunteerName:$scope.volunteers[index].volunteerName,
                 mon:$scope.volunteers[index].mon,
@@ -36,7 +38,7 @@ app.controller('ctrl',function($scope){
                 fri:$scope.volunteers[index].fri,
                 sat:$scope.volunteers[index].sat,
                 sun:$scope.volunteers[index].sun
-            }
+            })
         }).done(function(res){
             console.log(res);
             $scope.get();
@@ -46,7 +48,9 @@ app.controller('ctrl',function($scope){
         $.ajax({
             type:"POST",
             url:"/api/volunteers",
-            data:{
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data:JSON.stringify({
                 "volunteerName":$scope.volunteerName,
                 "mon":$scope.mon,
                 "tue":$scope.tue,
@@ -55,7 +59,7 @@ app.controller('ctrl',function($scope){
                 "fri":$scope.fri,
                 "sat":$scope.sat,
                 "sun":$scope.sun
-            }
+            })
         }).done(function(res){
             console.log(res);
             $scope.volunteerName = "";
