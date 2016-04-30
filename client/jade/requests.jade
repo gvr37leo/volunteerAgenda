@@ -29,7 +29,7 @@ html(lang=en ng-app='app')
                                 th
                                 th
                         tbody
-                            tr(ng-repeat='request in requests | filter:searchText track by $index')
+                            tr(ng-repeat='request in requests | filter:searchText | orderBy : "time" track by $index')
                                 td
                                     typeahead(source='uniqueElders' ng-model="request.elderName")
                                 td

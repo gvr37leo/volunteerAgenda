@@ -44,7 +44,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="request in requests | filter:searchText track by $index">
+              <tr ng-repeat="request in requests | filter:searchText | orderBy : &quot;time&quot; track by $index">
                 <td>
                   <typeahead source="uniqueElders" ng-model="request.elderName"></typeahead>
                 </td>
