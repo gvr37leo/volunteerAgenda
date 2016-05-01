@@ -48,8 +48,8 @@ app.controller('ctrl',function($scope){
         res.forEach(function(requesttype, i){
             //building dictionary
             $scope.uniqueRequestTypes[i] = requesttype.requestName;
-            eldersbyid[requesttype.elderid] = requesttype;
-            eldersbyname[requesttype.elderName] = requesttype;
+            requestTypesbyid[requesttype.requestTypeid] = requesttype;
+            requestTypesbyname[requesttype.requestName] = requesttype;
         });
         console.log(res);
     });
@@ -63,7 +63,7 @@ app.controller('ctrl',function($scope){
             data:JSON.stringify({
                 "elderid":eldersbyname[$scope.elderName].elderid,
                 "volunteerid":volunteersbyname[$scope.volunteerName].volunteerid,
-                "requestTypeid":parseInt($scope.requestTypeid),
+                "requestTypeid":requestTypesbyname[$scope.requestName].requestTypeid,
                 "location":$scope.location,
                 "time":$scope.time,
                 "timeback":$scope.timeback,
@@ -74,7 +74,7 @@ app.controller('ctrl',function($scope){
             console.log(res);
             $scope.elderName = "";
             $scope.volunteerName = "";
-            $scope.requestTypeid = "";
+            $scope.requestName = "";
             $scope.location = "";
             $scope.time = "";
             $scope.timeback = "";
@@ -92,10 +92,12 @@ app.controller('ctrl',function($scope){
             res.forEach(function(request){
                 request.volunteerName = volunteersbyid[request.volunteerid].volunteerName;
                 request.elderName = eldersbyid[request.elderid].elderName;
+                request.requestName = requestTypesbyid[request.requestTypeid].requestName;
                 //delete because the id isn't gonna get updated and would contain wrong data if the user changes the name
                 //id will get looked up in the dictionary with the correct name when updates occur
                 delete request.volunteerid;
                 delete request.elderid;
+                delete request.requestTypeid;
             });
             $scope.$apply();
             console.log(res);
@@ -112,9 +114,9 @@ app.controller('ctrl',function($scope){
                 //dictionary lookup of the correct id
                 elderid:eldersbyname[request.elderName].elderid,
                 volunteerid:volunteersbyname[request.volunteerName].volunteerid,
+                requestTypeid:requestTypesbyname[request.requestName].requestTypeid,
 
                 location:request.location,
-                requestTypeid:request.requestTypeid,
                 time:request.time,
                 timeback:request.timeback,
                 retour:request.retour,

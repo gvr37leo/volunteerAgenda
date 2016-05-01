@@ -38,7 +38,6 @@ var genCRUD = function(router,connection,tableName,idfield){
                 condition:condition,
                 modifier: req.body
             });
-            console.log(sql.query);
             connection.query(sql.query, function(err, rows, fields){
                 if(err)res.send(false);
                 else res.send(true);

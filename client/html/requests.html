@@ -61,7 +61,7 @@
                   <input type="text" ng-model="request.location" class="form-control">
                 </td>
                 <td>
-                  <input type="text" ng-model="request.requestTypeid" class="form-control">
+                  <typeahead source="uniqueRequestTypes" ng-model="request.requestName"></typeahead>
                 </td>
                 <td>
                   <button uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model="request.retour" class="btn btn-default">retour</button>
@@ -94,7 +94,7 @@
                   <input type="text" ng-model="location" class="form-control">
                 </td>
                 <td>
-                  <input type="text" ng-model="requestTypeid" class="form-control">
+                  <typeahead source="uniqueRequestTypes" ng-model="requestName"></typeahead>
                 </td>
                 <td>
                   <button uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model="retour" class="btn btn-default">retour</button>

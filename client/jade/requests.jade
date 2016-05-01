@@ -41,7 +41,7 @@ html(lang=en ng-app='app')
                                 td
                                     input.form-control(type='text', ng-model='request.location')
                                 td
-                                    input.form-control(type='text', ng-model='request.requestTypeid')
+                                    typeahead(source='uniqueRequestTypes' ng-model="request.requestName")
                                 td
                                     button.btn.btn-default(uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model='request.retour') retour
                                 td
@@ -63,7 +63,7 @@ html(lang=en ng-app='app')
                                 td
                                     input.form-control(type='text', ng-model='location')
                                 td
-                                    input.form-control(type='text', ng-model='requestTypeid')
+                                    typeahead(source='uniqueRequestTypes' ng-model="requestName")
                                 td
                                     button.btn.btn-default(uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-model='retour') retour
                                 td
