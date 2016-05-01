@@ -7,8 +7,6 @@ app.controller('ctrl',function($scope){
         $.ajax({
             type:"DELETE",
             url:"/api/elders",
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
             data:{
                 elderid:$scope.elders[index].elderid
             }
@@ -43,14 +41,14 @@ app.controller('ctrl',function($scope){
             url:"/api/elders",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data:{
+            data:JSON.stringify({
                 "movementAidid":$scope.movementAidid,
                 "elderName":$scope.elderName,
                 "address":$scope.address,
                 "postcode":$scope.postcode,
                 "mobile":$scope.mobile,
                 "note":$scope.note
-            }
+            })
         }).done(function(res){
             console.log(res);
             $scope.movementAidid = "";

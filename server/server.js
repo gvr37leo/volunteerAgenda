@@ -43,109 +43,15 @@ app.get("/requests", function(req, res){
     res.sendFile("client/html/requests.html", { root : "./"})
 });
 
-require("./CRUD/volunteer")(router,connection,jsonSql);
-require("./CRUD/elder")(router,connection,jsonSql);
+require("./general")(router,connection,"elders","elderid");
+require("./general")(router,connection,"volunteers","volunteerid");
+require("./general")(router,connection,"requesttype","requestTypeid");
 require("./CRUD/request")(router,connection,jsonSql);
-//router.route('/volunteers')
-//    .post(function (req, res) {
-//        deleteEmptyKeys(req.body);
-//        var sql = jsonSql.build({
-//            type: 'insert',
-//            table: 'volunteers',
-//            //fields: for optional null value injection
-//            values: req.body
-//        });
-//        //var query = generateCreate('volunteers',['volunteerName','mon','tue','wed','thu','fri','sat','sun'],req.body,[false,true,true,true,true,true,true,true]);
-//        //console.log(query);
-//        //console.log(sql.query);
-//        connection.query(sql.query, function(err, rows, fields) {
-//            if(err)res.send(false);
-//            else res.send(true);
-//        });
-//    })
-//    .get(function(req, res){
-//        connection.query('select * from volunteers', function(err, rows, fields){
-//            res.send(rows);
-//        });
-//    })
-//    .delete(function(req, res){
-//        connection.query('delete from volunteers where volunteerid =' + req.body.volunteerid, function(err, rows, fields){
-//            if(err)res.send(false);
-//            else res.send(true);
-//        });
-//    })
-//    .put(function(req, res){
-//        //deleteEmptyKeys(req.body);
-//        //0 values ignored
-//        var sql = jsonSql.build({
-//            type: 'update',
-//            table: 'volunteers',
-//            condition:{volunteerid:req.body.volunteerid},
-//            modifier: req.body
-//        });
-//        //var query = generateUpdate('volunteers',['volunteerName','mon','tue','wed','thu','fri','sat','sun'],req.body,[false,true,true,true,true,true,true,true],'volunteerid');
-//        //console.log(query);
-//        //console.log(sql.query);
-//        connection.query(sql.query, function(err, rows, fields){
-//            if(err)res.send(false);
-//            else res.send(true);
-//        });
-//    });
-
-//router.route('/requests')
-//    .post(function (req, res) {
-//        deleteEmptyKeys(req.body);
-//        var sql = jsonSql.build({
-//            type: 'insert',
-//            table: 'requests',
-//            //fields: for optional null value injection
-//            values: req.body
-//        });
-//        //'insert INTO requests (elderid, volunteerid, location, time) VALUES (' + req.body.elderid + ',' + req.body.volunteerid + ',\'' + req.body.location + '\',\'' + req.body.time + '\')'
-//        //var query = generateCreate('requests',['elderid','volunteerid','requestTypeid','location','time','timeback','retour','note'],req.body,[true,true,true,false,false,false,true,false]);
-//        //
-//        //console.log(query);
-//        //console.log(sql.query);
-//        connection.query(sql.query, function(err, rows, fields) {
-//            if(err)res.send(false);
-//            else res.send(true);
-//        });
-//    })
-//    .get(function(req, res){
-//        //'select requestid,elderid,volunteerid,location,DATE_FORMAT(time,\'%Y-%c-%d %T\') AS time  from requests'
-//        connection.query('select requestid,elderid,volunteerid,requestTypeid,location,DATE_FORMAT(time,\'%Y-%m-%d %T\') AS time,DATE_FORMAT(timeback,\'%Y-%c-%d %T\') AS timeback,retour,note from requests', function(err, rows, fields){
-//            res.send(rows);
-//        });
-//    })
-//    .delete(function(req, res){
-//        connection.query('delete from requests where requestid = ' + req.body.requestid, function(err, rows, fields){
-//            if(err)res.send(false);
-//            else res.send(true);
-//        });
-//    })
-//    .put(function(req, res){
-//        //deleteEmptyKeys(req.body);
-//        //for some reason 0 values get deleted
-//        var sql = jsonSql.build({
-//            type: 'update',
-//            table: 'requests',
-//            condition:{requestid:req.body.requestid},
-//            modifier: req.body
-//        });
-//        //var query = generateUpdate('requests',['elderid','volunteerid','requestTypeid','location','time','timeback','retour','note'],req.body,[true,true,true,false,false,false,true,false],'requestid');
-//        //console.log(query);
-//        //console.log(sql.query);
-//        connection.query(sql.query, function(err, rows, fields){
-//            if(err)res.send(false);
-//            else res.send(true);
-//        });
-//    });
+//generalize doest work for request because of the weird way it returns dates with the select query
 
 app.get('*', function(req, res){
     res.sendFile('client/html/404.html', { root : "./"});
 });
-
-//looks like mysql has something that converts json objects to sql queries
 
 function deleteEmptyKeys(object){
     for (var key in object) {

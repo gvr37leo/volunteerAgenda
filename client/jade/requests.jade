@@ -47,9 +47,10 @@ html(lang=en ng-app='app')
                                 td
                                     input.form-control(type='text', ng-model='request.note')
                                 td
-                                    button.btn.btn-warning(type='button', ng-click='update($index)') Save
+                                    //pass object in parameter instead of index
+                                    button.btn.btn-warning(type='button', ng-click='update(request)') Save
                                 td
-                                    button.btn.btn-danger(type='button', ng-click='delete($index)') Delete
+                                    button.btn.btn-danger(type='button', ng-click='delete(request)') Delete
                             tr
                                 td
                                     typeahead(source='uniqueElders' ng-model="elderName")

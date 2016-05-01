@@ -5,6 +5,8 @@ var volunteersbyid = {};
 var eldersbyid = {};
 var volunteersbyname = {};
 var eldersbyname = {};
+var requestTypesbyid = {};
+var requestTypesbyname = {};
 
 app.controller('ctrl',function($scope){
     //rows
@@ -13,6 +15,7 @@ app.controller('ctrl',function($scope){
     //array version of dictionary for typeahead fields with only the name value
     $scope.uniqueElders = [];
     $scope.uniqueVolunteers = [];
+    $scope.uniqueRequestTypes = [];
 
     $.ajax({
         type:"GET",
@@ -35,6 +38,18 @@ app.controller('ctrl',function($scope){
             $scope.uniqueElders[i] = elder.elderName;
             eldersbyid[elder.elderid] = elder;
             eldersbyname[elder.elderName] = elder;
+        });
+        console.log(res);
+    });
+    $.ajax({
+        type:"GET",
+        url:"/api/requesttype"
+    }).done(function(res){
+        res.forEach(function(requesttype, i){
+            //building dictionary
+            $scope.uniqueRequestTypes[i] = requesttype.requestName;
+            eldersbyid[requesttype.elderid] = requesttype;
+            eldersbyname[requesttype.elderName] = requesttype;
         });
         console.log(res);
     });
@@ -86,36 +101,36 @@ app.controller('ctrl',function($scope){
             console.log(res);
         });
     };
-    $scope.update = function(index){
+    $scope.update = function(request){
         $.ajax({
             type:"PUT",
             url:"/api/requests",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data:JSON.stringify({
-                requestid:$scope.requests[index].requestid,
+                requestid:request.requestid,
                 //dictionary lookup of the correct id
-                elderid:eldersbyname[$scope.requests[index].elderName].elderid,
-                volunteerid:volunteersbyname[$scope.requests[index].volunteerName].volunteerid,
+                elderid:eldersbyname[request.elderName].elderid,
+                volunteerid:volunteersbyname[request.volunteerName].volunteerid,
 
-                location:$scope.requests[index].location,
-                requestTypeid:$scope.requests[index].requestTypeid,
-                time:$scope.requests[index].time,
-                timeback:$scope.requests[index].timeback,
-                retour:$scope.requests[index].retour,
-                note:$scope.requests[index].note
+                location:request.location,
+                requestTypeid:request.requestTypeid,
+                time:request.time,
+                timeback:request.timeback,
+                retour:request.retour,
+                note:request.note
             })
         }).done(function(res){
             console.log(res);
             $scope.get();
         });
     };
-    $scope.delete = function(index){
+    $scope.delete = function(request){
         $.ajax({
             type:"DELETE",
             url:"/api/requests",
             data:{
-                requestid:$scope.requests[index].requestid
+                requestid:request.requestid
             }
         }).done(function(res){
             console.log(res);
